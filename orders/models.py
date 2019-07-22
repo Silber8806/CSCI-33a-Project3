@@ -35,6 +35,13 @@ class ProductVariationOption(models.Model):
     def __str__(self):
         return f"{self.product_option_name} - $ {self.product_option_unit_price}"
 
+class ProductType(models.Model):
+    product_type_name = models.CharField(max_length=64, blank=True)
+    sort_order = models.IntegerField(null=True,blank=True)
+
+    def __str__(self):
+        return f"{self.product_type_name}"
+
 class Product(models.Model):
     NONE = 'N'
     SMALL = 'S'
@@ -46,6 +53,7 @@ class Product(models.Model):
     ]
     product_name = models.CharField(max_length=64,blank=True)
     product_type = models.CharField(max_length=64, blank=True)
+    product_type_fk = models.ForeignKey(ProductType, on_delete=models.DO_NOTHING, null=True, blank=True)
     product_variation_fk = models.ForeignKey(ProductVariation, on_delete=models.DO_NOTHING, null=True, blank=True)
     product_size = models.CharField(
         max_length=1,

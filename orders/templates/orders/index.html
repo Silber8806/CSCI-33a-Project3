@@ -3,5 +3,10 @@
 {% block title %} Blues {% endblock %}
 
 {% block content %}
-    <h1> Hello World! </h1>
+    {% for product in products %}
+        {% ifchanged product.product_type_fk %}
+            <h1> {{ product.product_type_fk }} </h2>
+        {% endifchanged %}
+        <p>{{ product.product_type}} - {{ product.product_name }} {{ product.product_size }} {{ product.product_unit_price }} </p>
+    {% endfor %}
 {% endblock %}
