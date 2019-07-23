@@ -5,9 +5,10 @@ from .models import (
     Customer,
     Address,
     Product,
-    ProductType,
+    ProductCategory,
     ProductVariation,
-    ProductVariationOption,
+    ProductGroup,
+    ProductGroupOption,
     Order,
     OrderLineItem
 )
@@ -16,8 +17,9 @@ from .models import (
 admin.site.register(Customer)
 admin.site.register(Address)
 admin.site.register(Product)
-admin.site.register(ProductType)
+admin.site.register(ProductCategory)
 admin.site.register(ProductVariation)
-admin.site.register(ProductVariationOption)
+admin.site.register(ProductGroup)
+admin.site.register(ProductGroupOption)
 admin.site.register(Order)
 admin.site.register(OrderLineItem)

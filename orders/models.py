@@ -21,52 +21,52 @@ class Address(models.Model):
     def __str__(self):
         return f"This is a order..."
 
-class ProductVariation(models.Model):
-    variation_name = models.CharField(max_length=64)
+
+class ProductGroup(models.Model):
+    group_name = models.CharField(max_length=64)
 
     def __str__(self):
-        return f"{self.variation_name}"
+        return f"{self.group_name}"
 
-class ProductVariationOption(models.Model):
-    product_option_name = models.CharField(max_length=64)
-    product_option_unit_price = models.DecimalField(max_digits=5, decimal_places=2)
-    variation_fk = models.ForeignKey(ProductVariation, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return f"{self.product_option_name} - $ {self.product_option_unit_price}"
-
-class ProductType(models.Model):
-    product_type_name = models.CharField(max_length=64, blank=True)
-    sort_order = models.IntegerField(null=True,blank=True)
+class ProductGroupOption(models.Model):
+    option_name = models.CharField(max_length=64)
+    option_unit_price = models.DecimalField(max_digits=5, decimal_places=2)
+    group_fk = models.ForeignKey(ProductGroup, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.product_type_name}"
+        return f"{self.option_name} - $ {self.option_unit_price}"
+
+
+class ProductCategory(models.Model):
+    product_category_name = models.CharField(max_length=64, blank=True)
+    sort_order = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.product_category_name}"
+
 
 class Product(models.Model):
-    NONE = 'N'
-    SMALL = 'S'
-    LARGE = 'L'
-    SIZE_CHOICES = [
-        (NONE, None),
-        (SMALL, 'Small'),
-        (LARGE, 'large'),
-    ]
-    product_name = models.CharField(max_length=64,blank=True)
-    product_type = models.CharField(max_length=64, blank=True)
-    product_type_fk = models.ForeignKey(ProductType, on_delete=models.DO_NOTHING, null=True, blank=True)
-    product_variation_fk = models.ForeignKey(ProductVariation, on_delete=models.DO_NOTHING, null=True, blank=True)
-    product_size = models.CharField(
-        max_length=1,
-        choices=SIZE_CHOICES,
-        default=SMALL,
-        blank=False,
-        null=True
-    )
-    product_options_limit = models.IntegerField()
+    product_name = models.CharField(max_length=64, blank=True)
+    product_category_fk = models.ForeignKey(ProductCategory, on_delete=models.DO_NOTHING, null=True, blank=True)
+    product_group_fk = models.ForeignKey(ProductGroup, on_delete=models.DO_NOTHING, null=True, blank=True)
     product_unit_price = models.DecimalField(max_digits=5, decimal_places=2)
+    option_num_min = models.IntegerField(blank=True, null=True)
+    option_num_max = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.product_type} - {self.product_size} - {self.product_name} - $ {self.product_unit_price}"
+        return f"{self.product_name} - { self.product_category_fk.product_category_name}- $ {self.product_unit_price}"
+
+
+class ProductVariation(models.Model):
+    variation_name = models.CharField(max_length=64,null=True, blank=True)
+    variation_category = models.CharField(max_length=64,null=True, blank=True)
+    variation_unit_price = models.DecimalField(max_digits=5, decimal_places=2,null=True, blank=True)
+    product_fk = models.ForeignKey(Product, on_delete=models.CASCADE,null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.product_fk.product_name} - {self.variation_name} - $ {self.variation_unit_price + self.product_fk.product_unit_price}"
+
 
 class Order(models.Model):
     customer_fk = models.ForeignKey(Customer, on_delete=models.DO_NOTHING, related_name="customer")
