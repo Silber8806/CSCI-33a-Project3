@@ -1,18 +1,30 @@
 {% extends 'orders/base.html' %}
 
+{% load static %}
+
 {% block title %} Pinocchio's Pizza & Subs {% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1> Our Menu </h1>
+<div id="menu" class="container">
+    <div id="menu-bar">
+        <img id="logo" src="{% static 'images/logo.gif' %}" alt="pizza logo">
+        <h1> Our Menu </h1>
+    </div>
     {% regroup products by product_category_fk.product_category_name as product_list %}
 
     {% for category in product_list %}
-    <h2> {{ category.grouper }}</h2>
-    <div class="category_box">
-         {% for product in category.list %}
-        <div class="product">{{ product.product_name }} - {{ product.product_unit_price }} </div>
-        {% endfor %}
+    <div class="category">
+        <div class="category-header">
+             <h2> {{ category.grouper }}</h2>
+        </div>
+        <div class="products">
+             {% for product in category.list %}
+            <div class="product-body">
+                <h3> {{ product.product_name }} </h3>
+                <p> ${{ product.product_unit_price }}+</p>
+            </div>
+            {% endfor %}
+        </div>
     </div>
     {% endfor %}
 

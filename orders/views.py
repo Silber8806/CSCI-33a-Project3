@@ -8,7 +8,8 @@ def index(request):
     context = {
         "products": Product.objects.select_related('product_category_fk').order_by(
                 'product_category_fk__sort_order',
-                'product_name',
+                'product_unit_price',
+                'product_name'
                 )
     }
     return render(request,'orders/index.html',context)
