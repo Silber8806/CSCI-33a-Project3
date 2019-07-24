@@ -30,16 +30,25 @@
         </ul>
     </div>
     <div class="mx-auto order-0">
-        <a class="navbar-brand mx-auto" href="#">Pinocchio's Pizza </a>
+        <a class="navbar-brand mx-auto" href="/">Pinocchio's Pizza </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link" href="#">Account</a>
+                <a class="nav-link" href="#">{{ user.username }}</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}"> Login/Register </a>
+            </li>
+            {% endif %}
             <li class="nav-item">
                   <form class="form-inline">
                     <button class="btn btn-outline-success" type="button">Cart</button>

@@ -1,0 +1,45 @@
+{% extends 'templates/base.html' %}
+
+{% block content %}
+  <h2>Sign up</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Sign up</button>
+  </form>
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <div class="card rounded-0">
+                        <div class="card-header">
+                            <h3 class="mb-0">Signup</h3>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" action="{% url 'login' %}">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    {{ form.username.label_tag }}
+                                    {{ form.username }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.password.label_tag }}
+                                    {{ form.password }}
+                                </div>
+                                <a href="{% url 'logout' %}">
+                                    <div class="btn btn-danger btn-lg float-left" id="cancel">Cancel
+                                    </div>
+                                </a>
+                                <button type="submit" class="btn btn-primary btn-lg float-right" id="btnLogin">Sign-up
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

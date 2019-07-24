@@ -1,3 +1,6 @@
+body {
+  background: #eee; }
+
 #menu #menu-bar {
   text-align: center;
   margin: 20px 0px; }
@@ -34,5 +37,8 @@
     background-color: #FFFFFF; }
   #menu .products .product-body:hover {
     border: 2px solid red; }
+
+#id_username, #id_password {
+  width: 100%; }
 
 /*# sourceMappingURL=styles.css.map */
