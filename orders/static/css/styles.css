@@ -38,7 +38,11 @@ body {
   #menu .products .product-body:hover {
     border: 2px solid red; }
 
-#id_username, #id_password {
+#user-form input[id^=id] {
   width: 100%; }
+
+#action-options {
+  display: flex;
+  justify-content: space-between; }
 
 /*# sourceMappingURL=styles.css.map */
