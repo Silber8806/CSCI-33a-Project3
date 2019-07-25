@@ -59,6 +59,11 @@ body {
     width: 100%;
 }
 
+.form-errors {
+    list-style-type: none;
+    color: red;
+}
+
 #action-options {
     display: flex;
     justify-content: space-between;

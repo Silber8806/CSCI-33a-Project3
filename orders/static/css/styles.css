@@ -41,6 +41,10 @@ body {
 #user-form input[id^=id] {
   width: 100%; }
 
+.form-errors {
+  list-style-type: none;
+  color: red; }
+
 #action-options {
   display: flex;
   justify-content: space-between; }

@@ -21,11 +21,14 @@
                                 {% if field.help_text %}
                                 <small style="color: grey">{{ field.help_text|safe }}</small>
                                 {% endif %}
-                                {% for error in field.errors %}
-                                <p style="color: red">{{ error }}</p>
                                 {% endfor %}
-                                </p>
-                                {% endfor %}
+                                {% if form.non_field_errors %}
+                                    <ul class='form-errors'>
+                                        {% for error in form.non_field_errors %}
+                                            <li class="error-message">{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
                                 <div id="action-options">
                                     <a href="{% url 'index' %}">
                                         <div class="btn btn-danger btn-lg" id="xbtn">Cancel
