@@ -1,42 +1,55 @@
-body {
-  background: #eee; }
+.font-awesome {
+  font-family: "FontAwesome" !important;
+  font-style: normal; }
 
 #menu #menu-bar {
   text-align: center;
   margin: 20px 0px; }
   #menu #menu-bar #logo {
     height: 150px; }
-#menu .category {
+
+.product-info, .quantity-box {
+  border: 2px solid lightgrey;
+  margin-top: 30px;
+  padding: 20px;
+  text-align: center; }
+
+.product-header {
+  border-top: 2px solid lightgrey;
+  border-bottom: 2px solid lightgrey;
+  text-align: center;
+  margin: 10px 0px; }
+
+.collections {
   border-left: 2px solid lightgrey;
   border-right: 2px solid lightgrey;
   border-bottom: 2px solid lightgrey;
-  margin-bottom: 30px;
-  background-color: #CE2B37; }
-  #menu .category .category-header {
+  margin-bottom: 30px; }
+  .collections .collection-header {
     border-top: 2px solid lightgrey;
     border-bottom: 2px solid lightgrey;
     text-align: center;
     margin: 10px 0px;
-    background-color: #009246;
+    background-color: #CE2B37;
     color: #FFFFFF; }
-#menu .products {
-  display: flex;
-  flex-wrap: wrap; }
-  #menu .products .product-body {
+  .collections .collections-body {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    border: 2px solid lightgrey;
-    border-radius: 10%;
-    width: 200px;
-    height: 200px;
-    margin: 10px;
-    text-align: center;
-    font-size: 15px;
-    background-color: #FFFFFF; }
-  #menu .products .product-body:hover {
-    border: 2px solid red; }
+    flex-wrap: wrap; }
+    .collections .collections-body .collections-member {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      border: 2px solid lightgrey;
+      border-radius: 10%;
+      width: 200px;
+      height: 200px;
+      margin: 10px;
+      text-align: center;
+      font-size: 15px;
+      background-color: #FFFFFF; }
+    .collections .collections-body .collections-member:hover {
+      border: 2px solid red; }
 
 #user-form input[id^=id] {
   width: 100%; }
@@ -48,5 +61,14 @@ body {
 #action-options {
   display: flex;
   justify-content: space-between; }
+
+.option-inputs[type="radio"] {
+  margin-left: 15px; }
+
+#quantity {
+  width: 50px; }
+
+#order-btn {
+  float: right; }
 
 /*# sourceMappingURL=styles.css.map */

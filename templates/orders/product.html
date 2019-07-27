@@ -1,0 +1,65 @@
+{% extends 'templates/base.html' %}
+
+{% load static %}
+
+{% block title %} Pinocchio's Pizza & Subs - product.product_name {% endblock %}
+
+{% block libraries %}
+    <script src="{% static 'js/product.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<form method="post" action="addtocart">
+<div id="menu" class="container">
+    <div class="product-info">
+        <div class="product-info-header">
+            <h1> {{ product.product_name }}</h1>
+        </div>
+    </div>
+
+    {% if variations %}
+    {% regroup variations by variation_category as variation_list %}
+    {% for variation in variation_list %}
+    <div>
+        <div class="product-header">
+            <h2> {{ variation.grouper }} </h2>
+        </div>
+        <div>
+            {% for variant in variation.list %}
+            <div class="row">
+                <label for="size"> <input  class="option-inputs" type="radio" name="size" value="{{ variant.id }}">
+                    {{ variant.variation_name }} {% if variant.variation_unit_price %} - ${{ variant.variation_unit_price }}+ {% endif %} </label>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    {% if options %}
+    <div>
+        <div class="product-header">
+            <h2> Toppings! </h2>
+        </div>
+        <div>
+            {% for option in options %}
+            <div>
+                <label for="options"><input class="option-inputs" type="checkbox" name="options" value="{{ option.id }}"> {{ option.option_name }}
+                {% if option.option_unit_price %} - ${{ option.option_unit_price }}+ {% endif %} </label>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="quantity-box">
+        <label for="quantity"> Quantity: </label>
+        <i id="big-plus" class="font-awesome fas fa-plus-square"></i>
+        <input id="quantity" type="number" min="0" step="1"/>
+        <i id="big-minus" class="font-awesome fas fa-minus-square"></i>
+        <input id="order-btn" class="btn btn-primary btn-lg" type="submit" value="order"></div>
+    </div>
+</div>
+</form>
+{% endblock %}
+
