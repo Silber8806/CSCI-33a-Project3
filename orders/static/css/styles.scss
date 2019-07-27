@@ -1,6 +1,16 @@
 .font-awesome {
     font-family:'FontAwesome'!important;
     font-style: normal;
+    margin: 5px;
+}
+
+.noHighlight {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 #menu {
@@ -14,9 +24,10 @@
     }
 }
 
-.product-info, .quantity-box {
+.product-info {
     border: 2px solid lightgrey;
     margin-top: 30px;
+    margin-bottom: 50px;
     padding: 20px;
     text-align: center;
 }
@@ -87,11 +98,37 @@
     margin-left: 15px;
 }
 
-#quantity {
-    width: 50px;
+#add-to-cart-box {
+    border-top: 1px dashed grey;
+    font-weight: 500;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+
+    #quantity-box {
+        width: 200px;
+        margin-left: calc(50% - 100px);
+    }
+
+    #purchase-box {
+        float: right;
+        padding: 10px;
+
+        .purchase {
+            font-size: 20px;
+        }
+    }
+
+    #quantity {
+        width: 50px;
+        text-align: center;
+    }
 }
 
-#order-btn {
-    float: right;
+.warning {
+    color: #DC143C;
 }
+
+
+
 

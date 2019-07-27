@@ -18,13 +18,13 @@ def index(request):
 def product_info(request, product_id):
     product_options=ProductGroupOption.objects.filter(
         group_fk=Product.objects.filter(pk=product_id).values('product_group_fk')[0]['product_group_fk'])\
-        .values('option_name','option_unit_price')\
+        .values('id','option_name','option_unit_price')\
         .order_by('option_name')
     context = {
         "product": Product.objects.get(pk=product_id),
         "variations": list(
             ProductVariation.objects.filter(product_fk_id=product_id)
-                .values('variation_name','variation_category','variation_unit_price')
+                .values('id','variation_name','variation_category','variation_unit_price')
                 .order_by('-variation_name')
         ),
         "options": list(product_options)

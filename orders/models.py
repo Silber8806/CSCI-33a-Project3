@@ -49,7 +49,7 @@ class ProductCategory(models.Model):
 class Product(models.Model):
     product_name = models.CharField(max_length=64)
     product_category_fk = models.ForeignKey(ProductCategory, on_delete=models.DO_NOTHING)
-    product_group_fk = models.ForeignKey(ProductGroup, on_delete=models.DO_NOTHING, null=True)
+    product_group_fk = models.ForeignKey(ProductGroup, on_delete=models.DO_NOTHING, null=True,blank=True)
     product_unit_price = models.DecimalField(max_digits=5, decimal_places=2)
     option_num_min = models.IntegerField(default=0)
     option_num_max = models.IntegerField(default=0)
