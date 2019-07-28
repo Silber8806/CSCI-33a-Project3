@@ -1,0 +1,55 @@
+{% extends 'templates/base.html' %}
+
+{% load static %}
+
+{% block title %} Pinocchio's Pizza & Subs - Cart {% endblock %}
+
+{% block libraries %}
+    <script src="{% static 'js/cart.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div id="accordion">
+        {% for item in items %}
+        <div class="card">
+            <div class="card-header" id="cart-header-{{ forloop.counter }}">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-{{ forloop.counter }}"
+                            aria-expanded="true"
+                            aria-controls="collapse-{{ forloop.counter }}">
+                          {{ item.product_fk__product_category_fk__product_category_name }} -
+                          {{ item.product_fk__product_name }} - {{ item.quantity }} units - ${{ item.order_line_total }}
+                    </button>
+                    <i class="font-awesome fas fa-times kill-cart-line" data-id="{{ item.id }}"></i>
+                </h5>
+            </div>
+            <div id="collapse-{{ forloop.counter }}" class="collapse show" aria-labelledby="headingOne"
+                 data-parent="#accordion">
+                <div class="card-body">
+                    <p> <span class="cart-line-info">Description:</span> </p>
+                    {{ item.product_fk__product_name }} is really great with anything. Take home 5 next
+                    time!
+                    </p>
+                    {% if item.product_variation_fk__variation_name %}
+                    <p> <span class="cart-line-info">Size: </span>{{ item.product_variation_fk__variation_name }} </p>
+                    {% endif %}
+                    {% if item.product_options %}
+                    <p> <span class="cart-line-info">Options:</span> {{ item.product_options }} </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <form method="post" action="{% url 'checkout' %}">
+        <input type="hidden" id="user-id" name="user-id" value="{{ user.id }}">
+         {% csrf_token %}
+        <div id="checkout-box">
+            <input id="checkout-btn" class="btn-primary btn-lg" type="submit" value="checkout"/>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

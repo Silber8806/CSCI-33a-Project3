@@ -125,10 +125,25 @@
     }
 }
 
+#checkout-btn {
+    float: right;
+}
+
+#accordion {
+    margin: 50px 0px;
+}
+
 .warning {
     color: #DC143C;
 }
 
+.cart-line-info {
+    font-weight: bold;
+}
 
-
+.kill-cart-line {
+    color: red;
+    font-size: 25px;
+    float: right;
+}
 

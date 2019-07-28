@@ -62,7 +62,7 @@
                 {% for option in options %}
                 <div>
                     <label for="options"><input class="option-inputs toppings" data-price="{{ option.option_unit_price }}" type="checkbox" name="options"
-                                                value="{{ option.id }}"> {{ option.option_name }}
+                                                value="{{ option.option_name }}"> {{ option.option_name }}
                         {% if option.option_unit_price %} - ${{ option.option_unit_price }}+ {% endif %} </label>
                 </div>
                 {% endfor %}
