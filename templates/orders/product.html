@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-<form method="post" action="{% url 'addtocart' %}">
+<form id="add-to-cart-form" method="post" action="{% url 'addtocart' %}">
     {% csrf_token %}
     <div id="menu" class="container">
         <div class="product-info">

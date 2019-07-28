@@ -47,7 +47,7 @@
         <h1> No Items Currently in Cart! </h1>
     </div>
 
-    <form method="post" action="{% url 'checkout' %}">
+    <form id="checkout-form" method="post" action="{% url 'checkout' %}">
         <input type="hidden" id="user-id" name="user-id" value="{{ user.id }}">
          {% csrf_token %}
         <div id="checkout-box">

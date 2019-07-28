@@ -68,6 +68,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 calculate_price();
             }
         }
+
+        document.getElementById("add-to-cart-form").onsubmit = function(event){
+            calculate_price();
+        }
     };
 
     let quantity_box = document.getElementById('quantity');
@@ -85,7 +89,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     is_valid_toppings();
 
     purchase_amount.innerHTML = base_price;
-
 
     set_up_event_handlers()
 });

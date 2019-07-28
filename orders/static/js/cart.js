@@ -71,6 +71,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     )
 
+    document.getElementById("checkout-form").onsubmit = function(event){
+        calculate_total_basket();
+    }
+
     var checkout_btn = document.getElementById("checkout-btn");
     var no_items = document.getElementById("no-items")
 

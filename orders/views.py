@@ -61,7 +61,7 @@ def addtocart(request):
                               order_line_total=request.POST['order-total']
                               )
     new_cart_item.save()
-    return HttpResponseRedirect(request.POST.get('next', '/'));
+    return redirect('index');
 
 
 def cart(request):
