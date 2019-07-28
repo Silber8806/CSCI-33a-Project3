@@ -14,6 +14,7 @@
         <div class="product-info">
             <div class="product-info-header">
                 <h1> {{ product.product_name }}</h1>
+                <h4> ${{ product.product_unit_price }} </h4>
             </div>
         </div>
 
@@ -21,6 +22,7 @@
         <input type="hidden" data-price="{{ product.product_unit_price }}"  id="product_id" name="product_id" value="{{ product.id }}">
         <input type="hidden" id="option-num-min" name="option-num-min" value="{{ product.option_num_min }}">
         <input type="hidden" id="option-num-max" name="option-num-max" value="{{ product.option_num_max }}">
+        <input type="hidden" id="order-total" name="order-total" value=0>
 
         {% if variations %}
         {% regroup variations by variation_category as variation_list %}
@@ -56,7 +58,7 @@
                 {% endif %}
                 {% for option in options %}
                 <div>
-                    <label for="options"><input class="option-inputs" data-price="{{ option.option_unit_price }}" type="checkbox" name="options"
+                    <label for="options"><input class="option-inputs toppings" data-price="{{ option.option_unit_price }}" type="checkbox" name="options"
                                                 value="{{ option.id }}"> {{ option.option_name }}
                         {% if option.option_unit_price %} - ${{ option.option_unit_price }}+ {% endif %} </label>
                 </div>
@@ -72,7 +74,8 @@
                 <i id="big-minus" class="font-awesome fas fa-minus-square"></i>
             </span>
              <span id="purchase-box">
-                <span class="purchase" id="currency">$</span><span class="purchase" id="purchase-total">0.00</span>
+                <span class="purchase" id="currency">$</span>
+                 <span class="purchase" id="purchase-total">0.00</span>
                 <input id="order-btn" class="btn-primary btn-lg" type="submit" value="order"/>
              </span>
         </div>
