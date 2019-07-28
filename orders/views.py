@@ -2,6 +2,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Product, ProductVariation, ProductGroup, ProductGroupOption
 
+from django.shortcuts import get_object_or_404
+from django.http.response import HttpResponseRedirect
+from django.contrib.auth.models import User
+from .models import AddToCart, Product, ProductVariation
+
+
 # Create your views here.
 def index(request):
     context = {
@@ -30,4 +36,25 @@ def product_info(request, product_id):
     return render(request, 'orders/product.html', context)
 
 def addtocart(request):
-    return redirect('index');
+    try:
+        product_variant = ProductVariation.objects.get(id=int(request.POST.get('size', 0)))
+    except ProductVariation.DoesNotExist:
+        product_variant = None
+
+    product_options = request.POST.get('options', None)
+    if(product_options):
+        product_options = ','.join(product_options)
+
+    new_cart_item = AddToCart(user_fk=User.objects.get(id=int(request.POST['user'])),
+                              product_fk=Product.objects.get(pk=int(request.POST['product_id'])),
+                              product_variation_fk=product_variant,
+                              product_options=product_options,
+                              unit_price=request.POST['per-unit-price'],
+                              quantity=request.POST['quantity'],
+                              order_line_total= request.POST['order-total']
+                              )
+    new_cart_item.save()
+    return HttpResponseRedirect(request.POST.get('next', '/'));
+
+def get_cart(request):
+    return redirect('index')

@@ -19,11 +19,13 @@
             </div>
         </div>
 
-        <input type="hidden" id="user" name="user" value="{{ request.user }}">
+        <input type="hidden" id="user" name="user" value="{{ request.user.id }}">
         <input type="hidden" data-price="{{ product.product_unit_price }}"  id="product_id" name="product_id" value="{{ product.id }}">
         <input type="hidden" id="option-num-min" name="option-num-min" value="{{ product.option_num_min }}">
         <input type="hidden" id="option-num-max" name="option-num-max" value="{{ product.option_num_max }}">
         <input type="hidden" id="order-total" name="order-total" value=0>
+        <input type="hidden" id="per-unit-price" name="per-unit-price" value={{ product.product_unit_price }}>
+        <input type="hidden" id="next" name="next" value="{{ request.path }}">
 
         {% if variations %}
         {% regroup variations by variation_category as variation_list %}
@@ -71,7 +73,7 @@
             <span id="quantity-box">
                 <label for="quantity"> Quantity: </label>
                 <i id="big-plus" class="font-awesome fas fa-plus-square"></i>
-                <input id="quantity" type="number" min="1" step="1" value="1"/>
+                <input id="quantity" name="quantity" type="number" min="1" step="1" value="1"/>
                 <i id="big-minus" class="font-awesome fas fa-minus-square"></i>
             </span>
              <span id="purchase-box">
@@ -81,7 +83,6 @@
              </span>
         </div>
     </div>
-
 </form>
 {% endblock %}
 

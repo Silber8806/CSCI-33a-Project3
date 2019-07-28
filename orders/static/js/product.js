@@ -12,8 +12,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
         });
 
-        let current_price =  format_currency(quantity_box.value * ( parseFloat(base_price) + options_priced));
+        let per_unit_price = format_currency( parseFloat(base_price) + options_priced)
+        let current_price =  format_currency(quantity_box.value * per_unit_price);
         purchase_amount.innerHTML = current_price;
+        per_unit_price_input.value = per_unit_price;
         order_total_amount.value = current_price;
     }
 
@@ -71,6 +73,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let quantity_box = document.getElementById('quantity');
     let purchase_amount = document.getElementById('purchase-total');
     let order_total_amount = document.getElementById('order-total');
+    let per_unit_price_input = document.getElementById('per-unit-price');
     let base_price = document.getElementById('product_id').dataset.price;
     let order_form_inputs = Array.prototype.slice.apply(document.querySelectorAll("input"));
     let product_options = Array.prototype.slice.apply(document.getElementsByClassName("option-inputs"));

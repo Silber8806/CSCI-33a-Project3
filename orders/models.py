@@ -1,26 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 # Create your models here.
-
-class Customer(models.Model):
-    first_name = models.CharField(max_length=64)
-    last_name = models.CharField(max_length=64)
-    phone = models.IntegerField()
-
-    def __str__(self):
-        return f"This is a order..."
-
-
-class Address(models.Model):
-    customer_fk = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    street = models.CharField(max_length=64)
-    state = models.CharField(max_length=64)
-    zip_code = models.IntegerField()
-
-    def __str__(self):
-        return f"This is a order..."
-
 
 class ProductGroup(models.Model):
     group_name = models.CharField(max_length=64)
@@ -49,13 +31,13 @@ class ProductCategory(models.Model):
 class Product(models.Model):
     product_name = models.CharField(max_length=64)
     product_category_fk = models.ForeignKey(ProductCategory, on_delete=models.DO_NOTHING)
-    product_group_fk = models.ForeignKey(ProductGroup, on_delete=models.DO_NOTHING, null=True,blank=True)
+    product_group_fk = models.ForeignKey(ProductGroup, on_delete=models.DO_NOTHING, null=True, blank=True)
     product_unit_price = models.DecimalField(max_digits=5, decimal_places=2)
     option_num_min = models.IntegerField(default=0)
     option_num_max = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"{self.product_name} - { self.product_category_fk.product_category_name}- $ {self.product_unit_price}"
+        return f"{self.product_name} - {self.product_category_fk.product_category_name}- $ {self.product_unit_price}"
 
 
 class ProductVariation(models.Model):
@@ -69,12 +51,9 @@ class ProductVariation(models.Model):
 
 
 class Order(models.Model):
-    customer_fk = models.ForeignKey(Customer, on_delete=models.DO_NOTHING)
-    address_fk = models.ForeignKey(Address, on_delete=models.DO_NOTHING)
+    user_fk = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     order_status = models.CharField(max_length=64)
     gross_amt = models.DecimalField(max_digits=12, decimal_places=2)
-    tax_amt = models.DecimalField(max_digits=12, decimal_places=2)
-    total_amt = models.DecimalField(max_digits=12, decimal_places=2)
     order_date = models.DateTimeField()
 
     def __str__(self):
@@ -84,8 +63,23 @@ class Order(models.Model):
 class OrderLineItem(models.Model):
     order_fk = models.ForeignKey(Order, on_delete=models.CASCADE)
     product_fk = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
+    product_variations = models.CharField(max_length=256)
+    product_options = models.CharField(max_length=256)
     unit_price = models.DecimalField(max_digits=5, decimal_places=2)
     quantity = models.IntegerField()
+
+    def __str__(self):
+        return f"This is a order..."
+
+
+class AddToCart(models.Model):
+    user_fk = models.ForeignKey(User, on_delete=models.CASCADE)
+    product_fk = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product_variation_fk = models.ForeignKey(ProductVariation, on_delete=models.CASCADE,null=True)
+    product_options = models.CharField(max_length=256, null=True)
+    unit_price = models.DecimalField(max_digits=5, decimal_places=2)
+    quantity = models.IntegerField()
+    order_line_total = models.DecimalField(max_digits=12, decimal_places=2)
 
     def __str__(self):
         return f"This is a order..."
