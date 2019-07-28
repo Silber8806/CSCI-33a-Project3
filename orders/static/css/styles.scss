@@ -125,8 +125,18 @@
     }
 }
 
-#checkout-btn {
+#checkout-btn,
+#total-checkout-label {
     float: right;
+    display: block;
+    clear: right;
+    padding: 10px;
+    margin: 10px;
+}
+
+#total-checkout {
+    width: 100px;
+    text-align: center;
 }
 
 #accordion {
@@ -145,5 +155,9 @@
     color: red;
     font-size: 25px;
     float: right;
+}
+
+#no-items {
+    text-align: center;
 }
 

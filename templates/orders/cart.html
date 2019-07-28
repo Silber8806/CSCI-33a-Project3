@@ -12,7 +12,7 @@
 <div class="container">
     <div id="accordion">
         {% for item in items %}
-        <div class="card">
+        <div class="card add-to-cart-item" data-price="{{ item.order_line_total }}">
             <div class="card-header" id="cart-header-{{ forloop.counter }}">
                 <h5 class="mb-0">
                     <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-{{ forloop.counter }}"
@@ -43,10 +43,15 @@
         {% endfor %}
     </div>
 
+    <div id="no-items">
+        <h1> No Items Currently in Cart! </h1>
+    </div>
+
     <form method="post" action="{% url 'checkout' %}">
         <input type="hidden" id="user-id" name="user-id" value="{{ user.id }}">
          {% csrf_token %}
         <div id="checkout-box">
+            <label id="total-checkout-label" for="total-checkout">Total Due: $ <input id="total-checkout" name="total-checkout" type="text" value="0.00" readonly></label>
             <input id="checkout-btn" class="btn-primary btn-lg" type="submit" value="checkout"/>
         </div>
     </form>

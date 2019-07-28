@@ -1,5 +1,28 @@
 document.addEventListener('DOMContentLoaded', (event) => {
 
+    function format_currency(currency){
+        return parseFloat(Math.round(currency * 100) / 100).toFixed(2);
+    }
+
+    function calculate_total_basket(){
+        let current_total = 0.00;
+        let cart_items = Array.prototype.slice.apply(document.getElementsByClassName('add-to-cart-item'))
+
+        if (cart_items.length == 0) {
+            checkout_btn.setCustomValidity("No Items in Cart!");
+            no_items.style.display = "block";
+        } else {
+            checkout_btn.setCustomValidity("");
+            no_items.style.display = "none";
+        }
+
+        cart_items.forEach((cart_item) =>
+            current_total += parseFloat(cart_item.dataset.price)
+        )
+
+        document.getElementById("total-checkout").value = format_currency(current_total);
+    }
+
     function getCookie(name) {
         var cookieValue = null;
         if (document.cookie && document.cookie != '') {
@@ -39,6 +62,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 "data": jsonData,
                 "success": function(result) {
                    cart.remove(cart_line_item);
+                   calculate_total_basket();
                 },
                 error : function(xhr,errmsg,err) {
                     console.log("something went wrong...")
@@ -46,5 +70,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
             });
         }
     )
+
+    var checkout_btn = document.getElementById("checkout-btn");
+    var no_items = document.getElementById("no-items")
+
+    calculate_total_basket()
 })
 
