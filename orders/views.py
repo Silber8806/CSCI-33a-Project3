@@ -1,6 +1,4 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import JsonResponse
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Product, ProductVariation, ProductGroup, ProductGroupOption
 
@@ -30,3 +28,6 @@ def product_info(request, product_id):
         "options": list(product_options)
     }
     return render(request, 'orders/product.html', context)
+
+def addtocart(request):
+    return redirect('index');
