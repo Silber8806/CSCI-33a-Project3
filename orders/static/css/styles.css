@@ -11,10 +11,16 @@
   -ms-user-select: none;
   user-select: none; }
 
-#menu #menu-bar {
+#menu #menu-bar,
+#menu #order-bar,
+#order-page #menu-bar,
+#order-page #order-bar {
   text-align: center;
   margin: 20px 0px; }
-  #menu #menu-bar #logo {
+  #menu #menu-bar #logo,
+  #menu #order-bar #logo,
+  #order-page #menu-bar #logo,
+  #order-page #order-bar #logo {
     height: 150px; }
 
 .product-info {
@@ -120,6 +126,9 @@
   float: right; }
 
 #no-items {
+  text-align: center; }
+
+#no-orders {
   text-align: center; }
 
 /*# sourceMappingURL=styles.css.map */

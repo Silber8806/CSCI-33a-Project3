@@ -1,0 +1,68 @@
+{% extends 'templates/base.html' %}
+
+{% load static %}
+
+{% block title %} Pinocchio's Pizza & Subs {% endblock %}
+
+{% block content %}
+<div id="order-page" class="container">
+
+
+
+    <div id="order-bar">
+        <img id="logo" src="{% static 'images/logo.gif' %}" alt="pizza logo">
+        <h1> Your Orders </h1>
+    </div>
+
+    {% if orders %}
+
+    <div id="accordion">
+        {% regroup orders by order_fk as orders_list %}
+        {% for order in orders_list %}
+        <div class="card">
+            <div class="card-header" id="heading-{{ forloop.counter }}">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse"
+                            data-target="#collapse-{{ forloop.counter }}"
+                            aria-expanded="true" aria-controls="collapse-{{ forloop.counter }}">
+                        <div> #{{ order.list.0.order_fk.id }} - {{ order.list.0.order_fk.get_order_status_display }} -
+                            ${{ order.list.0.order_fk.gross_amt }}
+                        </div>
+                        <div class="order-view-date">{{ order.list.0.order_fk.order_date }}</div>
+                    </button>
+                </h2>
+            </div>
+
+            <div id="collapse-{{ forloop.counter }}" class="collapse show"
+                 aria-labelledby="heading-{{ forloop.counter }}" data-parent="#accordion">
+                <div class="card-body">
+                    <div class="card">
+                        <ul class="list-group list-group-flush">
+                            {% for orderlineitem in order.list %}
+                            <li class="list-group-item">
+                                <div> {{ orderlineitem.quantity }}
+                                    - {{ orderlineitem.product_fk.product_category_fk.product_category_name }}
+                                    - {{ orderlineitem.product_fk.product_name }}
+                                    {% if orderlineitem.product_variations.variation_name %}
+                                        - {{ orderlineitem.product_variations.variation_name }}
+                                    {% endif %}
+                                </div>
+                                {% if orderlineitem.product_options %}
+                                    <div> Toppings: {{ orderlineitem.product_options }}</div>
+                                {% endif %}
+                                <div> Item Total: ${{ orderlineitem.line_total }}</div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% else %}
+        <h1 id="no-items"> You haven't made an order yet! </h1>
+    {% endif %}
+</div>
+{% endblock %}

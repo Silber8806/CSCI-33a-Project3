@@ -13,8 +13,10 @@
     user-select: none;
 }
 
-#menu {
-    #menu-bar {
+#menu,
+#order-page {
+    #menu-bar,
+    #order-bar {
        text-align:center;
        margin: 20px 0px;
 
@@ -161,3 +163,6 @@
     text-align: center;
 }
 
+#no-orders {
+    text-align: center;
+}

@@ -75,6 +75,9 @@ class OrderLineItem(models.Model):
     unit_price = models.DecimalField(max_digits=5, decimal_places=2)
     quantity = models.IntegerField()
 
+    def line_total(self):
+        return self.quantity * self.unit_price
+
     def __str__(self):
         return f"{self.order_fk.id} - {self.order_fk.user_fk} - {self.product_fk.product_name} - ${self.unit_price} - {self.quantity}"
 

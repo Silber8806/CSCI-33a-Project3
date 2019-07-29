@@ -8,5 +8,6 @@ urlpatterns = [
     path("addtocart/",views.addtocart,name="addtocart"),
     path("cart/",views.cart,name="cart"),
     path("checkout/",views.checkout,name="checkout"),
-    path("removefromcart/",views.removefromcart,name="removefromcart")
+    path("removefromcart/",views.removefromcart,name="removefromcart"),
+    path("orders/",views.orders,name="order"),
 ]

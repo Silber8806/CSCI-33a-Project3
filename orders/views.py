@@ -1,7 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .models import Product, ProductVariation, ProductGroup, ProductGroupOption
-
 import json
 
 from django.shortcuts import get_object_or_404
@@ -10,7 +8,7 @@ from django.http.response import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from .models import AddToCart, Product, ProductVariation, Order, OrderLineItem
+from .models import AddToCart, Product, ProductVariation, ProductGroupOption, Order, OrderLineItem
 
 
 # Create your views here.
@@ -115,7 +113,6 @@ def checkout(request):
         new_order.save()
 
         for item in current_cart_items:
-            print(item)
             new_order_line_item = OrderLineItem(order_fk=new_order,
                           product_fk=Product.objects.get(pk=int(item['product_fk'])),
                           product_variations=ProductVariation.objects.get(pk=int(item['product_variation_fk'])) if item['product_variation_fk'] else None,
@@ -126,3 +123,15 @@ def checkout(request):
             new_order_line_item.save()
             AddToCart.objects.get(pk=int(item['id'])).delete()
     return redirect('index')
+
+@login_required(login_url='/accounts/login/')
+def orders(request):
+    orderlineitems = OrderLineItem.objects.filter(order_fk__user_fk=request.user.id)\
+        .select_related('order_fk')\
+        .order_by('order_fk__order_date',
+                  'product_fk__product_name')
+    context = {
+        "orders": orderlineitems
+    }
+    print(context)
+    return render(request, 'orders/orders.html',context)
