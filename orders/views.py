@@ -5,10 +5,11 @@ from .models import Product, ProductVariation, ProductGroup, ProductGroupOption
 import json
 
 from django.shortcuts import get_object_or_404
-from django.http import QueryDict
-from django.http.response import HttpResponseRedirect, HttpResponse
+from django.http import QueryDict, HttpResponseServerError
+from django.http.response import HttpResponse, Http404
 from django.contrib.auth.models import User
-from .models import AddToCart, Product, ProductVariation
+from django.db import transaction, DatabaseError
+from .models import AddToCart, Product, ProductVariation, Order, OrderLineItem
 
 
 # Create your views here.
@@ -24,6 +25,7 @@ def index(request):
 
 
 def product_info(request, product_id):
+    get_object_or_404(Product,pk=product_id)
     product_options = ProductGroupOption.objects.filter(
         group_fk=Product.objects.filter(pk=product_id).values('product_group_fk')[0]['product_group_fk']) \
         .values('id', 'option_name', 'option_unit_price') \
@@ -93,5 +95,30 @@ def removefromcart(request):
     )
 
 def checkout(request):
-    return redirect('index')
+    with transaction.atomic():
+        new_order = Order(user_fk=request.user,
+              order_status="submitted",
+              gross_amt=request.POST.get('total-checkout',0.00))
 
+        current_cart_items = AddToCart.objects.filter(user_fk=request.user.id)\
+            .values('id',
+                    'product_fk',
+                    'product_variation_fk',
+                    'product_options',
+                    'unit_price',
+                    'quantity')
+
+        new_order.save()
+
+        for item in current_cart_items:
+            print(item)
+            new_order_line_item = OrderLineItem(order_fk=new_order,
+                          product_fk=Product.objects.get(pk=int(item['product_fk'])),
+                          product_variations=ProductVariation.objects.get(pk=int(item['product_variation_fk'])) if item['product_variation_fk'] else None,
+                          product_options=item['product_options'],
+                          unit_price=item['unit_price'],
+                          quantity=item['quantity']
+                          )
+            new_order_line_item.save()
+            AddToCart.objects.get(pk=int(item['id'])).delete()
+    return redirect('index')

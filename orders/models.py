@@ -54,7 +54,7 @@ class Order(models.Model):
     user_fk = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     order_status = models.CharField(max_length=64)
     gross_amt = models.DecimalField(max_digits=12, decimal_places=2)
-    order_date = models.DateTimeField()
+    order_date = models.DateTimeField(auto_now_add=True, editable=False, null=False, blank=False)
 
     def __str__(self):
         return f"This is a order..."
@@ -62,8 +62,8 @@ class Order(models.Model):
 
 class OrderLineItem(models.Model):
     order_fk = models.ForeignKey(Order, on_delete=models.CASCADE)
-    product_fk = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
-    product_variations = models.CharField(max_length=256)
+    product_fk = models.ForeignKey(Product, on_delete=models.DO_NOTHING,null=True)
+    product_variations = models.ForeignKey(ProductVariation, on_delete=models.CASCADE,null=True)
     product_options = models.CharField(max_length=256)
     unit_price = models.DecimalField(max_digits=5, decimal_places=2)
     quantity = models.IntegerField()
