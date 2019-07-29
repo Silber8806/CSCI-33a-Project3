@@ -57,25 +57,25 @@ class Order(models.Model):
     order_date = models.DateTimeField(auto_now_add=True, editable=False, null=False, blank=False)
 
     def __str__(self):
-        return f"This is a order..."
+        return f"{self.id} - {self.user_fk} - ${self.gross_amt} - {self.order_date.strftime('%m-%d-%Y %H:%M:%S')}"
 
 
 class OrderLineItem(models.Model):
     order_fk = models.ForeignKey(Order, on_delete=models.CASCADE)
-    product_fk = models.ForeignKey(Product, on_delete=models.DO_NOTHING,null=True)
-    product_variations = models.ForeignKey(ProductVariation, on_delete=models.CASCADE,null=True)
-    product_options = models.CharField(max_length=256)
+    product_fk = models.ForeignKey(Product, on_delete=models.DO_NOTHING, null=True)
+    product_variations = models.ForeignKey(ProductVariation, on_delete=models.CASCADE, null=True)
+    product_options = models.CharField(max_length=256, null=True)
     unit_price = models.DecimalField(max_digits=5, decimal_places=2)
     quantity = models.IntegerField()
 
     def __str__(self):
-        return f"This is a order..."
+        return f"{self.order_fk.id} - {self.order_fk.user_fk} - {self.product_fk.product_name} - ${self.unit_price} - {self.quantity}"
 
 
 class AddToCart(models.Model):
     user_fk = models.ForeignKey(User, on_delete=models.CASCADE)
     product_fk = models.ForeignKey(Product, on_delete=models.CASCADE)
-    product_variation_fk = models.ForeignKey(ProductVariation, on_delete=models.CASCADE,null=True)
+    product_variation_fk = models.ForeignKey(ProductVariation, on_delete=models.CASCADE, null=True)
     product_options = models.CharField(max_length=256, null=True)
     unit_price = models.DecimalField(max_digits=5, decimal_places=2)
     quantity = models.IntegerField()
