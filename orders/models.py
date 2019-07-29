@@ -51,13 +51,20 @@ class ProductVariation(models.Model):
 
 
 class Order(models.Model):
+    ORDER_STATUS_CHOICES = (
+        (1, 'submitted'),
+        (2, 'reviewed'),
+        (3, 'paid'),
+        (4, 'delivering'),
+        (5, 'fulfilled'),
+    )
     user_fk = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    order_status = models.CharField(max_length=64)
+    order_status = models.IntegerField(choices=ORDER_STATUS_CHOICES, default=1)
     gross_amt = models.DecimalField(max_digits=12, decimal_places=2)
     order_date = models.DateTimeField(auto_now_add=True, editable=False, null=False, blank=False)
 
     def __str__(self):
-        return f"{self.id} - {self.user_fk} - ${self.gross_amt} - {self.order_date.strftime('%m-%d-%Y %H:%M:%S')}"
+        return f"{self.id} - {self.user_fk} - ${self.gross_amt} - {self.order_status} - {self.order_date.strftime('%m-%d-%Y %H:%M:%S')}"
 
 
 class OrderLineItem(models.Model):

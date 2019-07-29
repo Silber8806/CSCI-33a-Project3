@@ -5,14 +5,16 @@ from .models import Product, ProductVariation, ProductGroup, ProductGroupOption
 import json
 
 from django.shortcuts import get_object_or_404
-from django.http import QueryDict, HttpResponseServerError
-from django.http.response import HttpResponse, Http404
+from django.http import QueryDict
+from django.http.response import HttpResponse
 from django.contrib.auth.models import User
-from django.db import transaction, DatabaseError
+from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from .models import AddToCart, Product, ProductVariation, Order, OrderLineItem
 
 
 # Create your views here.
+@login_required(login_url='/accounts/login/')
 def index(request):
     context = {
         "products": Product.objects.select_related('product_category_fk').order_by(
@@ -23,7 +25,7 @@ def index(request):
     }
     return render(request, 'orders/index.html', context)
 
-
+@login_required(login_url='/accounts/login/')
 def product_info(request, product_id):
     get_object_or_404(Product,pk=product_id)
     product_options = ProductGroupOption.objects.filter(
@@ -41,7 +43,7 @@ def product_info(request, product_id):
     }
     return render(request, 'orders/product.html', context)
 
-
+@login_required(login_url='/accounts/login/')
 def addtocart(request):
     try:
         product_variant = ProductVariation.objects.get(id=int(request.POST.get('size', 0)))
@@ -65,7 +67,7 @@ def addtocart(request):
     new_cart_item.save()
     return redirect('index');
 
-
+@login_required(login_url='/accounts/login/')
 def cart(request):
     items = AddToCart.objects.filter(user_fk=request.user.id)\
         .select_related('product_fk','product_variation_fk','product_fk__product_category_fk')\
@@ -84,6 +86,7 @@ def cart(request):
     }
     return render(request, 'orders/cart.html', context)
 
+@login_required(login_url='/accounts/login/')
 def removefromcart(request):
     if request.method == 'DELETE':
         item = QueryDict(request.body).get('item')
@@ -94,10 +97,11 @@ def removefromcart(request):
         content_type="application/json"
     )
 
+@login_required(login_url='/accounts/login/')
 def checkout(request):
     with transaction.atomic():
         new_order = Order(user_fk=request.user,
-              order_status="submitted",
+              order_status=1,
               gross_amt=request.POST.get('total-checkout',0.00))
 
         current_cart_items = AddToCart.objects.filter(user_fk=request.user.id)\
