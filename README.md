@@ -16,7 +16,8 @@ Most likely at this point in time, you have no items in your cart and haven't pl
 can press any item on the menu to go to a detailed product page with options.  All options are based on a base 
 price plus a possible extra charge for things like: large size or more toppings.  Once you filled out the form
 correctly, you can click the "add-to-cart" button to add it to your cart.  When you click this button you will
-be redirected to the menu.
+be redirected to the menu.  Note, the add-to-cart items have an "X" next to them, which you can click to delete 
+an items from your cart.
 
 Feel free to place a few different items into your cart using the above method.  Note that each product detail
 page adjusts to the options provided by the administrator.  There are 3 types of information related to each 
@@ -236,7 +237,31 @@ orders -> view.py -> checkout function -> this uses a transaction within the fun
 the auto-commit feature of Django.  I didn't want to post an order unless both orderlineitem and order are committed
 at the same time.  If either fails, it should rollback to the previous state and error out instead.  I ended up
 using the transaction instead of transaction decorator as I wasn't sure if I was going to add more logic to 
-that specific function.
+that specific function.  I wish I had more time to test this out.
+
+## Improvements
+
+Admin needs a ton of improvements and I didn't have enough time to do it:
+* Product Category should show the sort order on the admin page.
+* Product Variation should use absolute price instead of value added.
+* Product Variation would probably best be served if product had a default size (small), but I built it to be 
+too general.  I thought more than size would show up.  I ended up only implementing size, which you can 
+see in the orders page (I pass only the size parameter instead of all possible sizes).
+* I wish I had used some of the more advanced admin features to create list views for product etc or show 
+product variations and product options when you click a product.
+*  There is no default UI sort order, which is a huge problem in terms of updating information.  Wish I had
+at least created some kind of dynamic sorting.
+
+Testing:
+* This entire project could use through testing.  Especially since we are dealing with monetary transactions.  Luckily
+this project isn't live.
+
+CSS:
+* I wish I had time to do a bit more re-org in this department.
+
+JS: 
+* I ended up using JQuery for the AJAX post request for deleting items.  I wish I figured out how to use 
+vanilla javascript, but just didn't have time for it.
 
 ## Sources:
 
