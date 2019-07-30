@@ -8,7 +8,6 @@
 <div id="order-page" class="container">
 
 
-
     <div id="order-bar">
         <img id="logo" src="{% static 'images/logo.gif' %}" alt="pizza logo">
         <h1> Your Orders </h1>
@@ -44,11 +43,11 @@
                                     - {{ orderlineitem.product_fk.product_category_fk.product_category_name }}
                                     - {{ orderlineitem.product_fk.product_name }}
                                     {% if orderlineitem.product_variations.variation_name %}
-                                        - {{ orderlineitem.product_variations.variation_name }}
+                                    - {{ orderlineitem.product_variations.variation_name }}
                                     {% endif %}
                                 </div>
                                 {% if orderlineitem.product_options %}
-                                    <div> Toppings: {{ orderlineitem.product_options }}</div>
+                                <div> Toppings: {{ orderlineitem.product_options }}</div>
                                 {% endif %}
                                 <div> Item Total: ${{ orderlineitem.line_total }}</div>
                             </li>
@@ -62,7 +61,7 @@
     </div>
 
     {% else %}
-        <h1 id="no-items"> You haven't made an order yet! </h1>
+    <h1 id="no-items"> You haven't made an order yet! </h1>
     {% endif %}
 </div>
 {% endblock %}

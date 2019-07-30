@@ -47,7 +47,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'logout' %}">logout</a>
             </li>
-             <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" href="{% url 'order' %}">Orders</a>
             </li>
             {% else %}
@@ -58,7 +58,8 @@
             <li class="nav-item">
                 <form class="form-inline">
                     <a href="{% url 'cart' %}">
-                        <button class="btn btn-outline-success" type="button"><span id="cart_item_num"></span>Cart</button>
+                        <button class="btn btn-outline-success" type="button"><span id="cart_item_num"></span>Cart
+                        </button>
                     </a>
                 </form>
             </li>

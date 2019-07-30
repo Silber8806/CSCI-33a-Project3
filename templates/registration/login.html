@@ -23,11 +23,11 @@
                                 {% endif %}
                                 {% endfor %}
                                 {% if form.non_field_errors %}
-                                    <ul class='form-errors'>
-                                        {% for error in form.non_field_errors %}
-                                            <li class="error-message">{{ error }}</li>
-                                        {% endfor %}
-                                    </ul>
+                                <ul class='form-errors'>
+                                    {% for error in form.non_field_errors %}
+                                    <li class="error-message">{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
                                 {% endif %}
                                 <div id="action-options">
                                     <a href="{% url 'index' %}">

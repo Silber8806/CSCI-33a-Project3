@@ -19,14 +19,14 @@
                                     {{ field }}
                                 </div>
                                 {% if field.help_text %}
-                                    <small style="color: grey">{{ field.help_text|safe }}</small>
+                                <small style="color: grey">{{ field.help_text|safe }}</small>
                                 {% endif %}
                                 {% if field.errors %}
-                                    <ul class='form-errors'>
-                                        {% for error in field.errors %}
-                                            <li>{{ error }}</li>
-                                        {% endfor %}
-                                    </ul>
+                                <ul class='form-errors'>
+                                    {% for error in field.errors %}
+                                    <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
                                 {% endif %}
                                 {% endfor %}
                                 <div id="action-options">

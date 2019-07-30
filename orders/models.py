@@ -64,7 +64,8 @@ class Order(models.Model):
     order_date = models.DateTimeField(auto_now_add=True, editable=False, null=False, blank=False)
 
     def __str__(self):
-        return f"{self.id} - {self.user_fk} - ${self.gross_amt} - {self.order_status} - {self.order_date.strftime('%m-%d-%Y %H:%M:%S')}"
+        return f"{self.id} - {self.user_fk} - ${self.gross_amt} - {self.order_status} - {self.order_date.strftime(
+            '%m-%d-%Y %H:%M:%S')}"
 
 
 class OrderLineItem(models.Model):
