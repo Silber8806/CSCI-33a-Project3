@@ -47,7 +47,7 @@ class ProductVariation(models.Model):
     product_fk = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.product_fk.product_name} - {self.variation_name} - $ {self.variation_unit_price + self.product_fk.product_unit_price}"
+        return f"{self.product_fk.product_category_fk.product_category_name} - {self.product_fk.product_name} - {self.variation_name} - $ {self.variation_unit_price + self.product_fk.product_unit_price}"
 
 
 class Order(models.Model):
@@ -92,4 +92,4 @@ class AddToCart(models.Model):
     order_line_total = models.DecimalField(max_digits=12, decimal_places=2)
 
     def __str__(self):
-        return f"This is a order..."
+        return f"{self.user_fk.username} - {self.product_fk} * {self.quantity} = ${self.order_line_total}"
