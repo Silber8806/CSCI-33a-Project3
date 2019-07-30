@@ -141,5 +141,4 @@ def orders(request):
     context = {
         "orders": orderlineitems
     }
-    print(context)
     return render(request, 'orders/orders.html', context)

@@ -67,20 +67,6 @@
     .collections .collections-body .collections-member:hover {
       border: 2px solid red; }
 
-#user-form input[id^=id] {
-  width: 100%; }
-
-.form-errors {
-  list-style-type: none;
-  color: red; }
-
-#action-options {
-  display: flex;
-  justify-content: space-between; }
-
-.option-inputs[type="radio"] {
-  margin-left: 15px; }
-
 #add-to-cart-box {
   border-top: 1px dashed grey;
   font-weight: 500;
@@ -107,6 +93,20 @@
   padding: 10px;
   margin: 10px; }
 
+#user-form input[id^=id] {
+  width: 100%; }
+
+.form-errors {
+  list-style-type: none;
+  color: red; }
+
+#action-options {
+  display: flex;
+  justify-content: space-between; }
+
+.option-inputs[type="radio"] {
+  margin-left: 15px; }
+
 #total-checkout {
   width: 100px;
   text-align: center; }
@@ -125,10 +125,13 @@
   font-size: 25px;
   float: right; }
 
-#no-items {
-  text-align: center; }
-
+#no-items,
 #no-orders {
   text-align: center; }
+
+#breadcrumb-product,
+.breadcrumb,
+.breadcrumb-list {
+  background-color: #FFFFFF; }
 
 /*# sourceMappingURL=styles.css.map */

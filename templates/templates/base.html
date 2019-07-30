@@ -7,7 +7,6 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
             crossorigin="anonymous"></script>
@@ -21,6 +20,7 @@
             crossorigin="anonymous"></script>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css"
           rel="stylesheet" type='text/css'>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     {% block libraries %}
     {% endblock %}
 </head>
@@ -30,6 +30,11 @@
 <nav class="navbar navbar-fixed-top navbar-expand-md navbar-light bg-light">
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
         <ul class="navbar-nav mr-auto">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="/">Menu</a>
+            </li>
+            {% endif %}
         </ul>
     </div>
     <div class="mx-auto order-0">

@@ -9,6 +9,15 @@
 {% endblock %}
 
 {% block content %}
+
+<nav id="breadcrumb-product" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ product.product_category_fk.product_category_name }} </li>
+    <li class="breadcrumb-item active" aria-current="page">{{ product.product_name }} </li>
+  </ol>
+</nav>
+
 <form id="add-to-cart-form" method="post" action="{% url 'addtocart' %}">
     {% csrf_token %}
     <div id="menu" class="container">
