@@ -50,10 +50,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     Array.prototype.slice.apply(document.getElementsByClassName("kill-cart-line")).forEach((cancel_button) =>
         cancel_button.onclick = function(event){
-            let item_to_delete = this.dataset.id;
-            let jsonData = { item: item_to_delete };
-            let cart = this.parentNode.parentNode.parentNode;
-            let cart_line_item = this.parentNode.parentNode;
+            let loan_to_delete = this.dataset.id;
+            let jsonData = { loan: loan_to_delete };
 
             $.ajax({
                 "type": "DELETE",
